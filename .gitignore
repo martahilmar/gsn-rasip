@@ -1,3 +1,5 @@
-/.project
+#build results
 build/
+
+# log files
 logs/

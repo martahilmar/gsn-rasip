@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <content url="file://$MODULE_DIR$/../../gsn-usb-cam-wrapper">
+      <sourceFolder url="file://$MODULE_DIR$/../../gsn-usb-cam-wrapper/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="openCV" level="project" />
+    <orderEntry type="library" name="javacv (2)" level="project" />
+    <orderEntry type="library" name="openCV (2)" level="project" />
+  </component>
+</module>
+

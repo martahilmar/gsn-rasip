@@ -1,0 +1,7 @@
+<PowerSupply>
+    <PowerBoard>
+        <ID>letvica</ID>
+        <IPAddress>192.168.0.150</IPAddress>
+        <Sockets>5</Sockets>
+    </PowerBoard>
+</PowerSupply>

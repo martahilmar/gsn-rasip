@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower
+END
+PowerSupplyConfig.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/PowerSupplyConfig.java
+END
+SmartPowerException.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/SmartPowerException.java
+END
+ConfigException.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/ConfigException.java
+END
+PowerBoard.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/PowerBoard.java
+END
+ResponseTimeoutException.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/ResponseTimeoutException.java
+END
+SmartPowerControl.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/SmartPowerControl.java
+END
+UnknownBoardException.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/UnknownBoardException.java
+END
+UnknownSocketException.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/UnknownSocketException.java
+END
+PowerSupply.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/PowerSupply.java
+END
+UnknownCommandException.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/smartpower/UnknownCommandException.java
+END

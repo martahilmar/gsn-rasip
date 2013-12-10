@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/coldwatch/!svn/ver/68/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands
+END
+CommandServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/CommandServer.java
+END
+FullStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/coldwatch/!svn/ver/68/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/FullStatusCommand.java
+END
+GetFullStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/GetFullStatusCommand.java
+END
+AirflowStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/AirflowStatusCommand.java
+END
+GetAirflowStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/GetAirflowStatusCommand.java
+END
+CommandRegistry.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/coldwatch/!svn/ver/68/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/CommandRegistry.java
+END
+CommandServerEvent.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/CommandServerEvent.java
+END
+FanStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/FanStatusCommand.java
+END
+GetFanStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/GetFanStatusCommand.java
+END
+CommandServerListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/CommandServerListener.java
+END
+GetHeaterStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/GetHeaterStatusCommand.java
+END
+HeaterStatusCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/HeaterStatusCommand.java
+END
+ResultCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/ResultCommand.java
+END
+SetFanCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/SetFanCommand.java
+END
+SetAirIntakeCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/coldwatch/!svn/ver/68/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/SetAirIntakeCommand.java
+END
+SetHeaterCommand.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/passiveHeating/commands/SetHeaterCommand.java
+END

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+  <core-parameters>
+    <externalTempLimit>0</externalTempLimit>
+    <internalTempLimit1>5</internalTempLimit1>
+    <internalTempLimit2>2</internalTempLimit2>
+    <internalTempLimit3>-2</internalTempLimit3>
+    <state1>
+      <fan>0</fan>
+      <heater>0</heater>
+    </state1>
+    <state2>
+      <fan>0</fan>
+      <heater>0</heater>
+    </state2>
+    <state3>
+      <fan>1</fan>
+      <heater>0</heater>
+    </state3>
+    <state4>
+      <fan>5</fan>
+      <heater>1</heater>
+    </state4>
+    <state5>
+      <fan>5</fan>
+      <heater>1</heater>
+    </state5>
+    <rabbit-ip>192.168.1.90</rabbit-ip>
+    <free-server-port>23625</free-server-port>
+  </core-parameters>
+  <state>
+    <auto-control>1</auto-control>
+    <manual-fan>1</manual-fan>
+    <manual-heater>2</manual-heater>
+    <air-intake>normal</air-intake>
+  </state>
+  <notifications>
+    <email />
+  </notifications>
+</config>
+

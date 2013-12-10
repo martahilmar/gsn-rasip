@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/coldwatch/!svn/ver/101/GSN/Trunk/GSN/src/hr/fer/rasip/http
+END
+PowerBoardHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/http/PowerBoardHandler.java
+END
+PassiveHeatingControllerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/coldwatch/!svn/ver/79/GSN/Trunk/GSN/src/hr/fer/rasip/http/PassiveHeatingControllerServlet.java
+END
+WebConstants.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/http/WebConstants.java
+END
+PassiveHeatingControllerHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/coldwatch/!svn/ver/101/GSN/Trunk/GSN/src/hr/fer/rasip/http/PassiveHeatingControllerHandler.java
+END
+PowerBoardControllerServlet.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/coldwatch/!svn/ver/66/GSN/Trunk/GSN/src/hr/fer/rasip/http/PowerBoardControllerServlet.java
+END

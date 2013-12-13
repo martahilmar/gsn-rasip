@@ -141,44 +141,44 @@ public class KomunikatorMeter {
 	}
 
 	public double GetPower() throws Exception {
-		this.Connect();
+		//this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.fullPowerMessage));
-		this.Close();
+		//this.Close();
 		return result;
 	}
 
 	public double GetPowerTariffOne() throws Exception {
-		this.Connect();
+		//this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.fullPowerT1Message));
-		this.Close();
+		//this.Close();
 		return result;
 	}
 
 	public double GetPowerTariffTwo() throws Exception {
-		this.Connect();
+		//this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.fullPowerT2Message));
-		this.Close();
+		//this.Close();
 		return result;
 	}
 
 	public double GetMaxCummulativePowerTariff1() throws Exception {
-		this.Connect();
+		//this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.maxCummulativePowerT1Message));
-		this.Close();
+		//this.Close();
 		return result;
 	}
 
 	public double GetMaxCummulativePowerTariff2() throws Exception {
-		this.Connect();
+		//this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.maxcummulativePowerT2Message));
-		this.Close();
+		//this.Close();
 		return result;
 	}
 
 	public double GetCurrentPowerTariff1() throws Exception {
-		this.Connect();
+		//this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.currentPowerT1Message));
-		this.Close();
+		//this.Close();
 		return result;
 	}
 

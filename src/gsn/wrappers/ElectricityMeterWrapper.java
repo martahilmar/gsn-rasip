@@ -57,6 +57,7 @@ public class ElectricityMeterWrapper extends AbstractWrapper{
             try {
     			byte[] zahtjev = new byte[] { 0x01, 0x52, 0x31, 0x02, 0x31, 0x2e,
     					0x34, 0x2e, 0x32, 0x28, 0x29, 0x03 };
+    			comunicator.Connect();
     			current_power_t1 = comunicator.GetCurrentPowerTariff1();
     			//power = comunicator.GetCurrentPowerTariff2();
     			max_cumm_power_t1 = comunicator.GetMaxCummulativePowerTariff1();
@@ -65,6 +66,7 @@ public class ElectricityMeterWrapper extends AbstractWrapper{
     			power_t1 = comunicator.GetPowerTariffOne();
     			//power = comunicator.GetPowerTariffTwo();
     			//System.out.println(GetBCC(zahtjev));
+    			comunicator.Close();
 
     		} catch (Exception e) {
     			System.out.println(e.getMessage());

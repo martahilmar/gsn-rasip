@@ -4,6 +4,9 @@
 logs/*
 .project
 .classpath
+/lib/RXTXcomm.jar
+/librxtxSerial.jnilib
+
 
 
 # Compiled source #

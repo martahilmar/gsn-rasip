@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<virtual-sensor name="A_WaspAgricultural" priority="10">
+  <processing-class>
+    <class-name>hr.fer.rasip.processingclasses.WaspMoteAgricultural</class-name>
+    <init-params>
+      <!-- <param name="persistant">false</param> -->
+    </init-params>
+    <output-structure>
+			<field name="air_temp" type="int" />
+			<field name="battery" type="int"/>
+			<field name="humidity" type="int"/>
+			<field name="eps" type="double"/>
+			<field name="vwc_mineral" type="double"/>
+			<field name="vwc_potting" type="double"/>
+			<field name="vwc_rockwool" type="double"/>
+			<field name="light_level" type="int"/>
+			<field name="air_pressure" type="int"/>
+		</output-structure>
+  </processing-class>
+  <description>Testing WaspMote Agricultural v0.9 </description>
+  <addressing />
+  <storage history-size="24h" />
+  <streams>
+    <stream name="stream1">
+      <source alias="source1" storage-size="1" sampling-rate="1">
+        <address wrapper="local">
+        <!--  Prije id bio waspzemljoradnik -->
+          <predicate key="query">select data, timed from G_WaspMoteGateway where moteID = '4-zemljoradnik'</predicate>
+        </address>
+        <query>select * from wrapper</query>
+      </source>
+      <query>select * from source1</query>
+    </stream>
+  </streams>
+</virtual-sensor>
+
+
+

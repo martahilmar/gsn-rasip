@@ -17,17 +17,17 @@ public class ElectricityMeterWrapper extends AbstractWrapper{
     private int                         samplingRate			= DEFAULT_SAMPLING_RATE;
     private static int                  threadCounter			= 0;
     private final transient Logger      logger					= Logger.getLogger(ElectricityMeterWrapper.class);
-        
-    private transient DataField [ ]   	outputStructureCache	= new DataField[] { new DataField( FIELD_CURRENT_POWER_T1, "double", "Current power tarrife one" ),
-            new DataField( FIELD_MAX_CUMM_POWER_T1, "double" , "Maximum cummulative poweer tarrife one." ), new DataField( FIELD_POWER, "double", "Electricity Power" ),
-            new DataField( FIELD_POWER_T1, "double", "Electricity Power" )};
       
     private static final String       FIELD_CURRENT_POWER_T1	= "CURRENT_POWER_T1";
     private static final String       FIELD_MAX_CUMM_POWER_T1	= "MAX_CUMM_POWER_T1";
     private static final String       FIELD_POWER				= "POWER";
     private static final String       FIELD_POWER_T1			= "POWER_T1";
     
-    private static final String [ ]   FIELD_NAMES				= new String [ ] { FIELD_CURRENT_POWER_T1, FIELD_MAX_CUMM_POWER_T1, FIELD_POWER, FIELD_POWER_T1 };
+    private transient DataField [ ] outputStructureCache = new DataField[] { new DataField( FIELD_CURRENT_POWER_T1, "double", "Current power tarrife one" ),
+            new DataField( FIELD_MAX_CUMM_POWER_T1, "double" , "Maximum cummulative poweer tarrife one." ), new DataField( FIELD_POWER, "double", "Electricity Power" ),
+            new DataField( FIELD_POWER_T1, "double", "Electricity Power" )};
+    
+    private static final String [ ] FIELD_NAMES = new String [ ] { FIELD_CURRENT_POWER_T1, FIELD_MAX_CUMM_POWER_T1, FIELD_POWER, FIELD_POWER_T1 };
     
 	KomunikatorMeter comunicator;
 	double current_power_t1, max_cumm_power_t1, power, power_t1;
@@ -39,10 +39,9 @@ public class ElectricityMeterWrapper extends AbstractWrapper{
             logger.error("Error in initializing DiskSpaceWrapper because of incompatible jdk version: " + javaVersion + " (should be 1.6.x)");
             return false;
         }
-        setName("DiskSpaceWrapper-Thread" + (++threadCounter));
+        setName("ElectricityMeterWrapper-Thread" + (++threadCounter));
         return true;
     }
-    
     
     public void run(){
         while(isActive()){

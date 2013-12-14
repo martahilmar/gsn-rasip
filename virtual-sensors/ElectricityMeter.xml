@@ -24,9 +24,9 @@
 				<address wrapper="Iskra">
 					<!--		<predicate key="rate">2000</predicate>   -->
 				</address>
-				<query>select CURRENT_POWER_T1, MAX_CUMM_POWER_T1, POWER, POWER_T1 from wrapper</query>
+				<query>select * from wrapper</query>
 			</source>
-			<query>select CURRENT_POWER_T1, MAX_CUMM_POWER_T1, POWER, POWER_T1 from source1</query>
+			<query>select * from source1</query>
 		</stream>
 	</streams>
 </virtual-sensor>

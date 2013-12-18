@@ -13,7 +13,7 @@ import gsn.electricity.*;
 
 public class ElectricityMeterWrapper extends AbstractWrapper{
     
-    private static final int            DEFAULT_SAMPLING_RATE	= 1000;
+    private static final int            DEFAULT_SAMPLING_RATE	= 60000;
     private int                         samplingRate			= DEFAULT_SAMPLING_RATE;
     private static int                  threadCounter			= 0;
     private final transient Logger      logger					= Logger.getLogger(ElectricityMeterWrapper.class);

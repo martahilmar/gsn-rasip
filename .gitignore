@@ -5,6 +5,13 @@ logs/*
 .project
 .classpath
 
+# Build results
+###################
+[Rr]elease/
+x64/
+[Bb]in/
+build/
+[Oo]bj/
 
 # Compiled source #
 ###################

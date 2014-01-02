@@ -46,7 +46,7 @@ public class RabbitWrapper extends AbstractWrapper {
 		AddressBean addressBean = getActiveAddressBean();
 		if (addressBean.getPredicateValue("sampling-rate") != null) {
 			samplingRate = ParamParser.getInteger(addressBean.getPredicateValue("sampling-rate"),DEFAULT_SAMPLING_RATE);
-			if (samplingRate <= 0 || samplingRate>36000000) {
+			if (samplingRate <= 0 || samplingRate > 36000000) {
 				logger.warn("Frekvencija citanja podataka za 'wrapper' mora biti cijeli broj izmedju 0 i 36000000.\n GSN ce koristiti frekvenciju citanja ("
 						+ DEFAULT_SAMPLING_RATE + "h ).");
 				samplingRate = DEFAULT_SAMPLING_RATE;				
@@ -111,14 +111,15 @@ public class RabbitWrapper extends AbstractWrapper {
 		
 		try {
 			if(saxParser != null)
-			saxParser.parse(resource, handler);
-			if(handler.toString() != null && handler.toString() != "")
+				saxParser.parse(resource, handler);
+			if(handler.toString() != null && handler.toString() != "")			
 				temperature = Integer.parseInt(handler.toString());
 		} catch (Exception e) {
 		    logger.error(e.getMessage() + handler.toString());
 		    return null;
 		}
-		
+
+		System.out.println(temperature);
 		return temperature;
 	}
 

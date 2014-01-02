@@ -1,4 +1,4 @@
-package gsn.wrappers;
+package gsn.wrappers.rasip;
 
 import gsn.beans.DataField;
 import gsn.beans.DataTypes;
@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 import org.apache.log4j.Logger;
 
+import gsn.wrappers.*;
 import gsn.electricity.*;
 
 public class ElectricityMeterWrapper extends AbstractWrapper{

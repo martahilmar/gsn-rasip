@@ -118,8 +118,7 @@ public class RabbitWrapper extends AbstractWrapper {
 		    logger.error(e.getMessage() + handler.toString());
 		    return null;
 		}
-
-		System.out.println(temperature);
+		
 		return temperature;
 	}
 

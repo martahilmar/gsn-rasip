@@ -32,6 +32,16 @@ public class KomunikatorMeter {
 	private byte[] currentPowerT2Message = new byte[] { 0x01, 0x52, 0x31, 0x02,
 			0x31, 0x2e, 0x34, 0x2e, 0x32, 0x28, 0x29, 0x03, 0x54 };
 
+	//private byte[] energyPhase1 = new byte[] { 0x01, 0x52, 0x31, 0x02, 
+	//		0x32, 0x2e, 0x38, 0x2e, 0x31, 0x28, 0x29, 0x03, 0x58 };
+			
+	private byte[] energyPhase1 = new byte[] { 0x01, 0x52, 0x31, 0x02, 
+			0x32, 0x31, 0x2e, 0x38, 0x2e, 0x30, 0x28, 0x29, 0x03, 0x68 };
+	private byte[] energyPhase2 = new byte[] { 0x01, 0x52, 0x31, 0x02, 
+			0x34, 0x31, 0x2e, 0x38, 0x2e, 0x30, 0x28, 0x29, 0x03, 0x6e };
+	private byte[] energyPhase3 = new byte[] { 0x01, 0x52, 0x31, 0x02, 
+			0x36, 0x31, 0x2e, 0x38, 0x2e, 0x30, 0x28, 0x29, 0x03, 0x6c };	
+	
 	private byte[] closeMessage = new byte[] { 0x01, 0x42, 0x30, 0x03, 0x71 };
 	private int baudRate = 300;
 
@@ -84,8 +94,7 @@ public class KomunikatorMeter {
 		if (portIdentifier.isCurrentlyOwned()) {
 			System.out.println("Error: Port is currently in use");
 		} else {
-			CommPort commPort = portIdentifier.open(this.getClass().getName(),
-					200);
+			CommPort commPort = portIdentifier.open(this.getClass().getName(), 200);
 
 			if (commPort instanceof SerialPort) {
 
@@ -185,6 +194,30 @@ public class KomunikatorMeter {
 	public double GetCurrentPowerTariff2() throws Exception {
 		this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.currentPowerT2Message));
+		this.Close();
+		return result;
+	}
+	
+
+
+	
+	public double GetEnergyPhase1() throws Exception {
+		//this.Connect();
+		double result = this.ParseResponse(this.GetReading(this.energyPhase1));
+		//this.Close();
+		return result;
+	}
+
+	public double GetEnergyPhase2() throws Exception {
+		//this.Connect();
+		double result = this.ParseResponse(this.GetReading(this.energyPhase2));
+		//this.Close();
+		return result;
+	}
+
+	public double GetEnergyPhase3() throws Exception {
+		this.Connect();
+		double result = this.ParseResponse(this.GetReading(this.energyPhase3));
 		this.Close();
 		return result;
 	}

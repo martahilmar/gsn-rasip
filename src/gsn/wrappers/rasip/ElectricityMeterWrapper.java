@@ -51,22 +51,34 @@ public class ElectricityMeterWrapper extends AbstractWrapper{
             }catch (InterruptedException e){
                 logger.error(e.getMessage(), e);
             }
-
+			
             comunicator = new KomunikatorMeter();
             
             try {
-    			byte[] zahtjev = new byte[] { 0x01, 0x52, 0x31, 0x02, 0x31, 0x2e,
-    					0x34, 0x2e, 0x32, 0x28, 0x29, 0x03 };
-    			comunicator.Connect();
-    			current_power_t1 = comunicator.GetCurrentPowerTariff1();
+
+    			byte[] zahtjev = new byte[] { 0x01, 0x52, 0x31, 0x02, 
+			0x36, 0x31, 0x2e, 0x38, 0x2e, 0x30, 0x28, 0x29, 0x03 };			
+				comunicator.Connect();
+				
+    			//current_power_t1 = comunicator.GetCurrentPowerTariff1();
     			//power = comunicator.GetCurrentPowerTariff2();
-    			max_cumm_power_t1 = comunicator.GetMaxCummulativePowerTariff1();
+    			//max_cumm_power_t1 = comunicator.GetMaxCummulativePowerTariff1();
     			//power = comunicator.GetMaxCummulativePowerTariff2();
+    			//power = comunicator.GetPower();
+    			//power_t1 = comunicator.GetPowerTariffOne();
+				//power = comunicator.GetPowerTariffTwo();
+    			//energy_phase1 =  comunicator.GetEnergyPhase1();
+    			//energy_phase2 =  comunicator.GetEnergyPhase2();
+    			//energy_phase3 =  comunicator.GetEnergyPhase3();
+    			
     			power = comunicator.GetPower();
-    			power_t1 = comunicator.GetPowerTariffOne();
-    			//power = comunicator.GetPowerTariffTwo();
-    			//System.out.println(GetBCC(zahtjev));
-    			comunicator.Close();
+				current_power_t1 = comunicator.GetEnergyPhase1();
+    			max_cumm_power_t1 = comunicator.GetEnergyPhase2();
+    			power_t1 = comunicator.GetEnergyPhase3();
+				comunicator.Close();
+
+				//System.out.println("******************** Vrijdnosti **********************" + power);
+    			//System.out.println("BCC vrijednost 1: " + GetBCC(zahtjev));
 
     		} catch (Exception e) {
     			System.out.println(e.getMessage());

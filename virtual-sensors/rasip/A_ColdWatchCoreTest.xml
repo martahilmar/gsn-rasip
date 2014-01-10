@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<virtual-sensor name="A_ColdWatchCoreTest" priority="10">
+  <processing-class>
+    <class-name>gsn.processor.ScriptletProcessor</class-name>
+    <init-params>
+      <param name="scriptlet">
+          <![CDATA[
+              //start of scriptlet
+              if(TIMED_EXTERNAL > TIMED_INTERNAL) {
+                //external termometer event handler
+                externalAlive = 1;
+              }
+              else{
+                //internal termometer event handler
+                internalAlive = 1;
+              }
+              tempInternal = TEMP_INTERNAL;
+              tempExternal = TEMP_EXTERNAL;  
+              //System.out.println ("Scriptlet. tempInternal = " + tempInternal + " tempExternal = " + tempExternal );
+                   
+            
+          ]]>
+      </param>
+      <param name="persistant-periodic">true</param>
+      <param name="period">900000</param>
+      <param name="scriplet-periodic">
+          <![CDATA[
+              import hr.fer.rasip.passiveHeating.control.*;
+              import org.jdom.Document;
+							import org.jdom.Element;
+							import org.jdom.input.SAXBuilder;
+              
+              if ( ! isdef('externalAlive')) {
+                  externalAlive = 0;
+              }
+              if (! isdef('internalAlive')){
+                internalAlive = 0;
+              }
+              if (! isdef('coreClock')){
+                coreClock = 2;
+              }
+              if (! isdef('tempInternal')){
+                tempInternal = 0;
+              }
+              if (! isdef('tempExternal')){
+                tempExternal = 0;
+              }
+              if (! isdef('ventilator')){
+                ventilator = 0;
+              }
+              if (! isdef('heater')){
+                heater = 0;
+              }
+              if (! isdef('lastState')){
+                lastState = 1;
+              }
+              
+              def recipients = [];
+              int externalTempLimit = 0;
+              int internalTempLimit1 = 0;
+              int internalTempLimit2 = 0;
+              int internalTempLimit3 = 0;
+              int state1fan = 0;
+              int state2fan = 0;
+              int state3fan = 0;
+              int state4fan = 0;
+              int state5fan = 0;
+              int state1Heater = 0;
+              int state2Heater = 0;
+              int state3Heater = 0;
+              int state4Heater = 0;
+              int state5Heater = 0;
+              String rabbitIP = new String("");
+              int autoControl = 0;
+              int sendEmailOK = 0;
+              
+              //gathering parameters from config file
+              
+              try{
+								SAXBuilder builder = new SAXBuilder();
+								File xmlFile = new File("passiveHeating/config.xml");
+								Document doc = (Document) builder.build(xmlFile);
+								Element root = doc.getRootElement();
+								Element coreParameters = root.getChild("core-parameters");
+								
+								externalTempLimit = Integer.valueOf(coreParameters.getChild("externalTempLimit").getValue());
+								internalTempLimit1 =Integer.valueOf(coreParameters.getChild("internalTempLimit1").getValue());
+								internalTempLimit2 =Integer.valueOf(coreParameters.getChild("internalTempLimit2").getValue());
+								internalTempLimit3 =Integer.valueOf(coreParameters.getChild("internalTempLimit3").getValue());
+								state1fan = Integer.valueOf(coreParameters.getChild("state1").getChild("fan").getValue());
+								state2fan = Integer.valueOf(coreParameters.getChild("state2").getChild("fan").getValue());
+								state3fan = Integer.valueOf(coreParameters.getChild("state3").getChild("fan").getValue());
+								state4fan = Integer.valueOf(coreParameters.getChild("state4").getChild("fan").getValue());
+								state5fan = Integer.valueOf(coreParameters.getChild("state5").getChild("fan").getValue());
+								state1heater = Integer.valueOf(coreParameters.getChild("state1").getChild("heater").getValue());
+								state2heater = Integer.valueOf(coreParameters.getChild("state2").getChild("heater").getValue());
+								state3heater = Integer.valueOf(coreParameters.getChild("state3").getChild("heater").getValue());
+								state4heater = Integer.valueOf(coreParameters.getChild("state4").getChild("heater").getValue());
+								state5heater = Integer.valueOf(coreParameters.getChild("state5").getChild("heater").getValue());
+								rabbitIP = coreParameters.getChild("rabbit-ip").getValue();
+								autoControl = Integer.valueOf(root.getChild("state").getChild("auto-control").getValue());
+								freeServerPort = Integer.valueOf(coreParameters.getChild("free-server-port").getValue())									
+								List<Element> elements = root.getChild("notifications").getChildren();
+								for (Element element : elements){
+									if (element.getName().equals("email")) {
+										recipients.add(element.getValue());
+									}
+								}
+			
+							}
+							catch(Exception e){
+								System.out.println(e.getClass + ": " + e.getMessage());
+								return;
+							}
+							
+              
+              if((internalAlive == 1) && (externalAlive == 1)){
+                //both sensors are alive
+                coreClock = internalAlive = externalAlive = 0;
+              }
+              else{
+                //one or more sensors failed to communicate in last period
+                coreClock++;
+              }
+              
+              if (autoControl){
+								//System.out.println ("Periodic.  " + coreClock + " and internalAlive = " + internalAlive + " externalAlive = " + externalAlive);
+								if(coreClock<2){
+									//Core is active
+									System.out.println("Core active");
+									
+									//state 1
+									if(tempExternal >= externalTempLimit){
+										ventilator = state1fan;
+										heater = state1heater;
+										if(lastState == 5){
+											sendEmailOK = 1;
+										}
+										lastState = 1;
+									}
+									
+									//state 2
+									if((tempExternal < externalTempLimit ) && (tempInternal >= internalTempLimit1)){
+										ventilator = state2fan;
+										heater = state2heater;
+										if(lastState == 5){
+											sendEmailOK = 1;
+										}
+										lastState = 2;
+									} 
+									
+									//state 3
+									if((tempExternal < externalTempLimit) && (tempInternal < internalTempLimit1) && (tempInternal >= internalTempLimit2 )){
+										if(lastState != 3){
+											//first time in this state
+											ventilator = state3fan;
+											heater = state3heater;
+										}
+										else{
+											//last state was state 3
+											if((tempInternal - startTemperature) < 0){
+												//increase ventilator power
+												if(ventilator < 5){
+													ventilator++;
+													heater = state3heater;
+												}
+											}
+										}
+										startTemperature = tempInternal;
+										if(lastState == 5){
+											sendEmailOK = 1;
+										}
+										lastState = 3;
+									}
+									
+									//state 4
+									if((tempExternal < externalTempLimit) && (tempInternal < internalTempLimit2) && (tempInternal > internalTempLimit3)){
+										//maximum heater and ventilator
+										ventilator = state4fan;
+										heater = state4heater;
+										if(lastState == 5){
+											sendEmailOK = 1;
+										}
+										lastState = 4;
+									} 
+									
+									//state 5
+									if((tempExternal < externalTempLimit) && (tempInternal <= internalTempLimit3)){
+										ventilator = state5fan; 
+										heater = state5heater;
+										
+										if((lastState != 5) && (recipients.size() != 0)){
+											sendEmail(recipients, "ColdWatch core alarm!", "Last measured values on ColdWatch input sensors are:\n" +
+																"    ExternalTemperature = " + tempExternal + "\n" +
+																"    InternalTemperature = " + tempInternal + "\n\n" +
+																"Auto control algorithm is now in state 5:\n" +
+																"    ExternalTemperature < " + externalTempLimit + "\n" +
+																"    InternalTemperature <= " + internalTempLimit3 + "\n\n" + 
+																"Auto control set following values to prevent freezing:\n" +
+																"    Fan = " + ventilator + "\n" + 
+																"    Heater = " + ((heater == 0 )? "off" : "on")+"\n\n" + 
+																"When auto control exits this state you will get a message.");
+										}			
+														
+										lastState = 5;
+									} 
+									VENTILATOR = ventilator;
+									HEATER = heater;
+								}
+								else{
+									System.out.println("Core inactive. Waiting for input sensors...");
+									ventilator = heater = 0;
+									VENTILATOR = HEATER = -1;
+								}
+								
+								try {
+									InetAddress localInetAddress = InetAddress.getLocalHost();
+									InetAddress remoteInetAddress = InetAddress.getByName(rabbitIP);
+									control = new Control(localInetAddress, freeServerPort, remoteInetAddress);
+									control.setFanPower(ventilator);
+									control.setHeaterState((heater==1)?true:false);
+								
+								} catch (Exception e) {
+										System.out.println(e.getClass + ": " + e.getMessage());
+								}
+								System.out.println ("Ventilator = " + ventilator + " Heater = " + heater);
+								
+								if((sendEmailOK == 1) && (recipients.size() != 0)){
+									//send everything ok message
+									sendEmail(recipients, "ColdWatch core OK!", "Last measured values on ColdWatch input sensors are:\n" +
+																	"    ExternalTemperature = " + tempExternal + "\n" +
+																	"    InternalTemperature = " + tempInternal + "\n\n" +
+																	"Auto control algorithm exited state 5:\n" +
+																	"    ExternalTemperature < " + externalTempLimit + "\n" +
+																	"    InternalTemperature <= " + internalTempLimit3 + "\n\n" + 
+																	"Auto control now sets following values:\n" +
+																	"    Fan = " + ventilator + "\n" + 
+																	"    Heater = " + ((heater == 0 )? "off" : "on"));		
+								}
+							}
+							else{
+								System.out.println("Core inactive. AutoControl is disabled...");
+								VENTILATOR = HEATER = -1;
+							}
+              
+          ]]>
+      </param>
+    </init-params>
+    <output-structure>
+			<field name="ventilator" type="int" />
+			<field name="heater" type="int" />
+		</output-structure>
+  </processing-class>
+  <description>ColdWatch core control algorthm testing virtual sensor</description>
+  <addressing>
+		<predicate key="geographical">ColdWatch core</predicate>
+		<predicate key="LATITUDE">45.855452</predicate>
+		<predicate key="LONGITUDE">15.986867</predicate>
+		<predicate key="owner">ColdWatch</predicate>
+	</addressing>
+  <storage history-size="24h" />
+  <streams>
+    <stream name="stream1">
+      <source alias="source1" storage-size="1" sampling-rate="1">
+        <address wrapper="local">
+          <predicate key="query">select * from A_WaspTermometer1</predicate>
+        </address>
+        <query>select temperature AS temp_internal, timed as timed_internal from wrapper</query>
+      </source>
+      <source alias="source2" storage-size="1" sampling-rate="1">
+        <address wrapper="local">
+          <predicate key="query">select * from A_WaspTermometer2</predicate>
+        </address>
+        <query>select temperature AS temp_external, timed as timed_external from wrapper</query>
+      </source>
+      <query>select * from source1, source2</query>
+    </stream>
+  </streams>
+</virtual-sensor>
+

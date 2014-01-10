@@ -1,0 +1,36 @@
+<virtual-sensor name="G_WaspMoteGateway" priority="10">
+	<processing-class>
+		<class-name>gsn.vsensor.BridgeVirtualSensor</class-name>
+		<init-params />
+		<output-structure>
+			<field name="moteID" type="varchar(20)" />
+			<field name="data" type="varchar(100)" />
+		</output-structure>
+	</processing-class>
+	<description>VS that collects data from WaspMoteGateway and process recived message
+	</description>
+	<life-cycle pool-size="10" />
+	<addressing>
+		<predicate key="geographical">Lion - GSN</predicate>
+		<predicate key="LATITUDE">45.855452</predicate>
+		<predicate key="LONGITUDE">15.986867</predicate>
+		<predicate key="owner">RASIP - Lion</predicate>
+	</addressing>
+	<storage history-size="5h" />
+	<streams>
+		<stream name="input1">
+			<source alias="source1" sampling-rate="1" storage-size="1">
+				<address wrapper="wasp">
+					<!--predicate key="serial-port">/dev/tty.usbserial-AH00NHUT</predicate-->
+					<!--predicate key="serial-port">/dev/tty.usbserial-A800eWLe</predicate-->
+					<predicate key="serial-port">/dev/tty.usbserial-A800eY2J</predicate>
+					<predicate key="baudrate">38400</predicate>
+					<predicate key="data-string-length">100</predicate>
+					<predicate key="mote-id-length">20</predicate>
+				</address>
+				<query>SELECT * FROM wrapper</query>
+			</source>
+			<query>SELECT * FROM source1</query>
+		</stream>
+	</streams>
+</virtual-sensor>

@@ -20,14 +20,14 @@ public class WaspMoteAgricultural extends AbstractVirtualSensor{
 	private String dataFieldName;
 	private int air_temp;
 	private int battery;
-	private int mv;
 	private double eps;
 	private double ground_hum_mineral_soil;
 	private double ground_hum_potting_soil;
 	private double ground_hum_rockwool;
+	private double ground_hum_perlite;
 	private int humidity;
 	private int light_level;
-	private int air_pressure;
+	private double earth_temp;
 	
     private static final transient Logger logger = Logger.getLogger(WaspMoteAgricultural.class);
     
@@ -53,39 +53,65 @@ public class WaspMoteAgricultural extends AbstractVirtualSensor{
 			if(fieldNames[i].toUpperCase().equals(dataFieldName.toUpperCase())) {
 				//procitaj data dio primljene poruke
 				message = (String) data.getData()[i];
-				//parsiraj tako da dobijes temperaturu i stanje baterije
-				//ovdje dodati za citanje drugih parametara
+				
+				//Parsiranje svojstava
 				air_temp = Integer.parseInt(message.split("!ta!")[1]);
 				battery = Integer.parseInt(message.split("!b!")[1]);
 				humidity = Integer.parseInt(message.split("!ha!")[1]);
-				mv = Integer.parseInt(message.split("!mv!")[1]);
+				eps = Integer.parseInt(message.split("!ea!")[1]); //Dobivanje eps_a iz eps_raw
 				light_level = Integer.parseInt(message.split("!ll!")[1]);
-				air_pressure = Integer.parseInt(message.split("!ap!")[1]);
+				earth_temp = Integer.parseInt(message.split("!te!")[1]); //T_raw
 				
-				//Racunaj vrijednosti vlage zraka za razlicita tla iz dobivenog epsilona
-				ground_hum_mineral_soil = 11.9e-4 * mv - 0.401;
-				ground_hum_potting_soil = 2.11e-3 * mv - 0.675;
-				ground_hum_rockwool = 2.63e-6 * Math.pow(mv, 2) + 5.07e-4 * mv - 0.0394;
-				//eps = 1.0570e-9 * Math.pow(mv, 3) + 3.57500e-6 * Math.pow(mv, 2) - 3.95570e-3 * mv + 1.53153; 
-				eps = -3.33260 * 1e-9 * Math.pow(mv, 3) + 7.02180 * 1e-6 * Math.pow(mv, 2) - 5.11647 * 1e-3 * mv + 1.30746; 
-				eps = Math.pow(eps, -1);
+				//Provjera greske
+				if(eps == 4095) { //4095 oznacava gresku, stavljamo sve na 0
+					eps = 0;
+					ground_hum_mineral_soil = 0;
+					ground_hum_potting_soil = 0;
+					ground_hum_rockwool = 0;
+					ground_hum_perlite = 0;
+				} else {
+					eps = eps / 50.0;
+					//Racunaj vrijednosti vlage zraka za razlicita tla iz dobivenog epsilona
+					ground_hum_mineral_soil = 4.3e-6 * Math.pow(eps, 3) - 5.5e-4 * Math.pow(eps, 2) + 2.92e-2 * eps - 5.3e-2;
+					ground_hum_potting_soil = 2.25e-5 * Math.pow(eps, 3) - 2.06e-3 * Math.pow(eps, 2) + 7.24e-2 * eps - 0.247;
+					ground_hum_rockwool = -1.68e-3 * Math.pow(eps, 2) + 6.56e-2 * eps + 0.0266;
+					ground_hum_perlite = -1.07e-3 * Math.pow(eps, 2) + 5.25e-2 * eps - 0.0685;
+				}
+				
+				if(earth_temp == 1023) {//1023 oznacava gresku, stavljamo apsolutnu nulu
+					earth_temp = -273.15;
+				} else {
+					//Racunanje temperature iz T_raw
+					if(earth_temp > 900) {
+						earth_temp = 900 + 5 * (earth_temp - 900);  
+					}
+				
+					earth_temp = (earth_temp - 400) / 10.0; //U stupnjevima Celsiusa
+				}
 			}
 		}
     	
 		StreamElement out = new StreamElement(new DataField[] {
-												new DataField("air_temp","int", "Measured air temperature." ), 
+												new DataField("air_temperature","int", "Measured air temperature." ), 
 												new DataField("battery", "int", "Battery percentage in mote."),
 												new DataField("humidity", "int", "Measured humidity in the air"),
-												new DataField("eps", "double", "Dielectric permittivity of the ground"),
-												new DataField("vwc_mineral", "double", "Measured volumetric water constant for mineral soil"),
-												new DataField("vwc_potting", "double", "Measured volumetric water constant for potting soil"),
-												new DataField("vwc_rockwool", "double", "Measured volumetric water constant for rockwool"),
+												new DataField("vwc_mineral", "double", "Measured volumetric water content for mineral soil"),
+												new DataField("vwc_potting", "double", "Measured volumetric water content for potting soil"),
+												new DataField("vwc_rockwool", "double", "Measured volumetric water content for rockwool"),
+												new DataField("vwc_perlite", "double", "Measured volumetric water content for perlite"),
 												new DataField("light_level", "int", "Measured light level"),
-												new DataField("air_pressure", "int", "Measured air pressure")
+												new DataField("earth_temperature", "double", "Measured temperature of the earth")
 											  },
 											  new Serializable[]{
-													air_temp, battery, humidity, eps, ground_hum_mineral_soil, 
-													ground_hum_potting_soil, ground_hum_rockwool , light_level, air_pressure
+													air_temp, 
+													battery, 
+													humidity, 
+													ground_hum_mineral_soil, 
+													ground_hum_potting_soil, 
+													ground_hum_rockwool, 
+													ground_hum_perlite, 
+													light_level, 
+													earth_temp
 													}
 											);
         dataProduced(out);

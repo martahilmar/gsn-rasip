@@ -216,9 +216,9 @@ public class KomunikatorMeter {
 	}
 
 	public double GetEnergyPhase3() throws Exception {
-		this.Connect();
+		//this.Connect();
 		double result = this.ParseResponse(this.GetReading(this.energyPhase3));
-		this.Close();
+		//this.Close();
 		return result;
 	}
 

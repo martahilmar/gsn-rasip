@@ -20,7 +20,7 @@
         <stream name="input1">
             <source alias="source1" sampling-rate="1" storage-size="1">
                 <address wrapper="TempRabbit">
-                    <predicate key="sampling-rate">1000</predicate>
+                    <predicate key="sampling-rate">60000</predicate>
                 </address>
                 <query>select * from wrapper</query>
             </source>

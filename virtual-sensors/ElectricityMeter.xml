@@ -1,0 +1,35 @@
+<virtual-sensor name="ElectricityMeter" priority="10">
+	<processing-class>
+		<class-name>gsn.vsensor.BridgeVirtualSensor</class-name>
+		<output-structure>
+			<field name="CURRENT_POWER_T1" type="double" />
+			<field name="MAX_CUMM_POWER_T1" type="double" />
+			<field name="POWER" type="double" />
+			<field name="POWER_T1" type="double" />
+			<field name="ENERGY_PHASE_1" type="double" />
+			<field name="ENERGY_PHASE_2" type="double" />
+			<field name="ENERGY_PHASE_3" type="double" />
+		</output-structure>
+	</processing-class>
+	
+	<description>This sensor measures power consumption.</description>
+	<life-cycle pool-size="10" />
+	<addressing>
+		<predicate key="geographical">ZARI</predicate>
+		<predicate key="LATITUDE">45.80000</predicate>
+		<predicate key="LONGITUDE">16.000000</predicate>
+	</addressing>
+	
+	<storage history-size="5m" />
+	<streams>
+		<stream name="input1">
+			<source alias="source1" sampling-rate="1" storage-size="1">
+				<address wrapper="Iskra">
+					<!--		<predicate key="rate">2000</predicate>   -->
+				</address>
+				<query>select * from wrapper</query>
+			</source>
+			<query>select * from source1</query>
+		</stream>
+	</streams>
+</virtual-sensor>

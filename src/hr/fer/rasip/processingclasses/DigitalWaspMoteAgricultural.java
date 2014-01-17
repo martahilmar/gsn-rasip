@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.TreeMap;
 
 
-public class WaspMoteAgricultural extends AbstractVirtualSensor{
+public class DigitalWaspMoteAgricultural extends AbstractVirtualSensor{
 	
 	//postavi ime kolone za podatkovni dio poruke
 	//predpostavljeni naziv je "data"
@@ -29,7 +29,7 @@ public class WaspMoteAgricultural extends AbstractVirtualSensor{
 	private int light_level;
 	private double earth_temp;
 	
-    private static final transient Logger logger = Logger.getLogger(WaspMoteAgricultural.class);
+    private static final transient Logger logger = Logger.getLogger(DigitalWaspMoteAgricultural.class);
     
     public boolean initialize() {
     	VSensorConfig vsensor = getVirtualSensorConfiguration();

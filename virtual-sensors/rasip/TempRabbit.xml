@@ -1,0 +1,30 @@
+ <virtual-sensor name="TempRabbit" priority="11">
+    <processing-class>
+        <class-name>gsn.vsensor.BridgeVirtualSensor</class-name>
+        <output-structure>
+            <field name="TEMPERATURA" type="int" />
+        </output-structure>
+
+    </processing-class>
+    <description>
+        Getting temperature.
+    </description>
+    <life-cycle pool-size="10" />
+    <addressing>
+        <predicate key="geographical">ZARI</predicate>
+        <predicate key="LATITUDE">45.80000</predicate>
+        <predicate key="LONGITUDE">16.000000</predicate>
+    </addressing>
+    <storage history-size="5m" />
+    <streams>
+        <stream name="input1">
+            <source alias="source1" sampling-rate="1" storage-size="1">
+                <address wrapper="TempRabbit">
+                    <predicate key="sampling-rate">60000</predicate>
+                </address>
+                <query>select * from wrapper</query>
+            </source>
+            <query>select * from source1</query>
+        </stream>
+    </streams>
+</virtual-sensor>

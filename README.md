@@ -43,4 +43,5 @@ This virtual sensor generates random values without the need of an actual physic
 ## 5. Default admin user
 
 username: Admin
+
 password: changeit

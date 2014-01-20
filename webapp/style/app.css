@@ -1,0 +1,53 @@
+html, body {
+    font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6, body {
+    font-family: 'Open sans', 'Ubuntu', 'Arial', 'Helvetica';
+}
+
+body {
+    background: url(../img/wrapper-bg.jpg);
+}
+
+#container {
+    background: #FFF;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+
+.overview {
+    position: relative;
+    min-height: 100px;
+}
+
+.overviewLegend {
+    padding: 7px;
+}
+
+.gsn_chart {
+    position: relative;
+    min-height: 250px;
+}
+
+button, .button {
+    font-family: Ubuntu, Arial, "Helvetica Neue";
+    font-weight: bold;
+}
+
+button.tiny, .button.tiny {
+    font-size: 13px;
+}
+
+button.tiny, .button.small {
+    font-size: 15px;
+}
+
+.box td > input {
+    margin: 0;
+}
+
+table.tablesorter thead tr .header {
+    padding-right: 15px;
+}

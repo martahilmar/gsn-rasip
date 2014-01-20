@@ -90,12 +90,9 @@ public class DataDownload extends HttpServlet {
                 responseCVS = true;
                 res.setContentType("text/csv");
                 //res.setContentType("text/html");
-            } else if(req.getParameter("display") != null && req.getParameter("display").equals("jpeg")) {
-               res.setContentType("image/jpeg");
-            } else{
+            } else {
                 res.setContentType("text/xml");
             }
-
             if (req.getParameter("commonReq") != null && req.getParameter("commonReq").equals("false")) {
                 commonReq = false;
             }

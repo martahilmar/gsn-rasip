@@ -115,27 +115,9 @@ public class MultiDataDownload extends HttpServlet {
 				rpd.outputResult(res.getOutputStream());
 				res.getOutputStream().flush();
 			}
-			else if ("jpeg".equals(downloadFormat)) {
-                gsn.http.datarequest.DownloadData dd = new gsn.http.datarequest.DownloadData(parameterMap);
-                //
-                if (Main.getContainerConfig().isAcEnabled()) {
-                    ArrayList<String> noAccess = checkAccessControl(user, dd.getQueryBuilder());
-                    if (noAccess != null && noAccess.size() > 0) {
-                        res.sendError(WebConstants.ACCESS_DENIED, "Access Control failed for vsNames:" + noAccess + " and user: " + (user == null ? "not logged in" : user.getUserName()));
-                        return;
-                    }
-                }
-                //
-                dd.process();
-                res.setContentType("image/jpeg");
-                if (! "inline".equals(downloadMode))
-                    res.setHeader("content-disposition","attachment; filename=picture.jpeg");
-                dd.outputResult(res.getOutputStream());
-                //res.getOutputStream().flush();
+			else {
+				throw new DataRequestException("Unknown download_format >" + downloadFormat + "<");
 			}
-            else {
-                throw new DataRequestException("Unknown download_format >" + downloadFormat + "<");
-            }
 		} catch (DataRequestException e) {
 			logger.error(e.getMessage());
 			res.sendError(WebConstants.ERROR_INVALID_VSNAME, e.getMessage());

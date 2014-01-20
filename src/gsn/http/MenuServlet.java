@@ -17,12 +17,11 @@ public class MenuServlet extends HttpServlet {
         PrintWriter out = res.getWriter();
         String selected = req.getParameter("selected");
         out.println("<ul id=\"menu\">");
-        out.println("<li" + ("index".equals(selected) ? " class=\"selected\"" : "") + "><a href=\"index.html#home\">home</a></li>");
-        out.println("<li" + ("data".equals(selected) ? " class=\"selected\"" : "") + "><a href=\"data.html#data\">data</a></li>");
-        out.println("<li" + ("map".equals(selected) ? " class=\"selected\"" : "") + "><a href=\"map.html#map\">map</a></li>");
-        out.println("<li" + ("fullmap".equals(selected) ? " class=\"selected\"" : "") + "><a href=\"fullmap.html#fullmap\">fullmap</a></li>");
+        out.println("<li" + ("index".equals(selected) ? " class=\"selected\"" : "") + "><a href=\"/index.html#home\"><strong>Home</strong></a></li>");
+        out.println("<li" + ("data".equals(selected) ? " class=\"selected\"" : "") + "><a href=\"/data.html#data\"><strong>Data</strong></a></li>");
+        out.println("<li" + ("map".equals(selected) ? " class=\"selected\"" : "") + "><a href=\"/map.html#map\"><strong>Map</strong></a></li>");
         if (Main.getContainerConfig().isAcEnabled()) {
-            out.println("<li><a href=\"/gsn/MyAccessRightsManagementServlet\">access rights management</a></li>");
+            out.println("<li><a href=\"/gsn/MyAccessRightsManagementServlet\"><strong>Access rights management</strong></a></li>");
         }
         out.println("</ul>");
         if (Main.getContainerConfig().isAcEnabled()) {
@@ -37,9 +36,9 @@ public class MenuServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         if (user == null)
-            name = "<li><a href=/gsn/MyLoginHandlerServlet> login</a></li>";
+            name = "<li><a href=/gsn/MyLoginHandlerServlet><strong>Login</strong></a></li>";
         else {
-            name = "<li><a href=/gsn/MyLogoutHandlerServlet> logout </a></li>" + "<li><div id=logintextprime >logged in as: " + user.getUserName() + "&nbsp" + "</div></li>";
+            name = "<li><a id=logintextprime >Logged in as: " + user.getUserName() + "</a></li>" + "<li><a href=/gsn/MyLogoutHandlerServlet><strong>Logout</strong></a></li>";
         }
         return name;
     }

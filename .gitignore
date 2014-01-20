@@ -4,7 +4,6 @@
 logs/*
 .project
 .classpath
-<<<<<<< HEAD
 /lib/RXTXcomm.jar
 /librxtxSerial.jnilib
 
@@ -76,7 +75,6 @@ build/
 *.sqlite
 *.db
 
->>>>>>> origin/electricitymeter
 # OS generated files #
 ######################
 .DS_Store
